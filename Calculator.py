@@ -6,7 +6,7 @@ print("SUB")
 print("MUL")
 print("DIV")
 
-i = int(input("Enter number 1 for add"))
+i = int(input("Enter number :- "))
 if i == 1:
     a = int(input("Enter A:"))
     b = int(input("Enter B:"))
