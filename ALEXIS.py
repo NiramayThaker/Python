@@ -1,5 +1,5 @@
 # it is similar to 'jarvis' but I have given my own name ... ALEXIS
-# All the comments is additional you can use it by your skills
+# All the comments in code is additional you can use it by your skills
 
 
 import pyttsx3 # pip install pyttsx3
