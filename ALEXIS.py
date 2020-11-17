@@ -1,5 +1,4 @@
-# it is similar to 'jarvis' but I have given my own name ... ALEXIS
-# All the comments in code is additional you can use it by your skills
+# All the comments in the code is additional you can use it by your skills
 
 
 import pyttsx3 # pip install pyttsx3
@@ -14,16 +13,22 @@ import psutil # pip install psutil
 import pyjokes
 import pyautogui # pip install pyautogui
 from time import sleep
+import random
+import pywhatkit as kit
+import string
 
 engine = pyttsx3.init()
 """voices = engine.getProperty('voices')
 print(voices[0].id)
 engine.setProperty("voices", voices[0].id)
 """
+
+
 def speak(audio):
     '''
     will make ALIXIS speak
     '''
+
     engine.say(audio)
     engine.runAndWait()
 
@@ -33,8 +38,9 @@ def aboutALEXIS():
     telling about his creater 
     (you can add more to it if you want)
     '''
+
     speak('dear sir, my name is ALEXIS;'
-    'one type of personal assistace ,;'
+    'one type of personal assistance ,;'
     'i can help you in as many way you allow me to do;'
     'i am created by one genius person names niramay thakar;'
     'it can be also said that niramay thakar is my creator')
@@ -45,6 +51,7 @@ def SpellingALEXIS():
     it will print the spelling on console and also speak the spelling
     of his name whenever you will ask for
     '''
+
     speak ("Spelling of my name is ... ")
     print("Spelling of my name is\n")
     print("       ||       ")
@@ -59,6 +66,7 @@ def date():
     '''
     tell me the date whenever i will ask for
     '''
+    
     year = int(datetime.datetime.now().year)
     month = int(datetime.datetime.now().month)
     date = int(datetime.datetime.now().day)
@@ -72,6 +80,7 @@ def time():
     '''
     tell me the time whenever i will ask for
     '''
+
     Time = datetime.datetime.now().strftime("%I:%M:%S")
     speak("dear sir, the current time is")
     speak(Time)
@@ -142,10 +151,32 @@ def takeCommand():
     return query
 
 
+def wait():
+    '''
+    will make ALEXIS sleep till doesn't called or quit
+    '''
+
+    speak("Type on your console as per given option to tell me what i should do ")  
+    print("TYPE :- \n:- come back -: or :- awake -: to continue")
+    print(" \n         'OR'          \n")
+    print("TYPE :- \n:- offline -: or :- goodbye -: to leave")
+    
+    i = input("\nType when you want to call me back ->> ").lower()
+ 
+    if i == 'come back' or 'awake':
+        speak("I am back for your service sir")
+    elif i == 'offline' or i == 'goodbye':
+        speak('good bye sir')
+        quit()
+    else:
+        speak("can't recognize type it again")
+        wait()
+
 def sendEmail(to, content):
     '''
     will help you to send email
     '''
+
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.ehlo()
     server.starttls()
@@ -156,8 +187,9 @@ def sendEmail(to, content):
 
 def cpu():
     '''
-    will show your system detail
+    will show system detail
     '''
+
     usage = str(psutil.cpu_percent())
     speak('CPU is at'+ usage)
     battery = psutil.sensors_battery()
@@ -166,20 +198,30 @@ def cpu():
 
 
 def jokes():
+    '''
+    will find and tell the jocks
+    '''
+
     speak(pyjokes.get_joke())
 
 
 def screenshot():
+    '''
+    will take a screenshot
+    '''
+
     img = pyautogui.screenshot()
     img.save("This Pc\\Pictures")
 
 
+#Logic to execute task based on query ..
 if __name__ == "__main__":
     wishme()
+    print("----------------- ALEXIS turned ON -----------------")
     while True:
         query = takeCommand().lower()
         
-        #Logic to execute task based on query ..
+        # all Logic starts here  
         if 'wikipedia' in query:
             speak("Searching Wikipedia .... ")
             query = query.replace("wikipedia", "")
@@ -187,16 +229,19 @@ if __name__ == "__main__":
             speak("Accourding to wikipedia :- \n")
             print(results)
             speak(results)
- 
 
-        elif 'my device status' in query:
+        elif 'cpu status' in query:
             usage = str(psutil.cpu_percent())
             usage = str(psutil.cpu_percent())
             speak('CPU is at'+ usage)
+            '''battery = psutil.sensors_battery()
+            speak("Battery is at")
+            speak(battery.percent )'''
+
+        elif 'battery status' in query:
             battery = psutil.sensors_battery()
             speak("Battery is at")
             speak(battery.percent )
-
         
         elif 'wait a minute' in query:
             speak("Ok sir ... ")
@@ -208,41 +253,75 @@ if __name__ == "__main__":
 
         elif 'open youtube' in query:
             wb.open("youtube.com")
+
         elif 'open google' in query:
             wb.open("google.com")
+
         elif 'open instagram' in query:
             wb.open("instagram.com")
 
+        elif 'open command prompt' in query:
+            speak("Ok sir opening command prompt")
+            os.system("start cmd")
+
+        elif 'search this' in query:
+            speak('yes, why not. what do you want me to search for ..??')
+            cm = takeCommand().lower()
+            wb.open(f"{cm}")
+            speak("done sir ... ")
+            wait()
+            
+        elif 'play music' in query:
+            music_dir = 'C:\\Users\\91830\\Music'
+            songs = os.listdir(music_dir)
+            # rd = random.choice(songs)
+            print(songs)
+            os.startfile(os.path.join(music_dir, songs[1]))
+            sleep(10)
+
+        elif 'play random music' in query:
+            speak("ok sir finding some random music")
+            music_dir = 'C:\\Users\\91830\\Music'
+            songs = os.listdir(music_dir)
+            rd = random.choice(songs)
+            os.startfile(os.path.join(music_dir, rd))
+            wait()
+
+        elif 'play see you again' in query:
+            speak("playing song on youtube")
+            kit.playonyt("see you again")# songs name
+            wait()
+
+        elif 'play the songs on youtube' in query:
+            speak("which one ?")
+            str1 = input("Song Name -> ")
+            kit.playonyt(str1)
+
+        elif "go to sleep" in query:
+            speak("as you wish sir")
+            wait()
 
         elif 'about yourself' in query:
             speak("Yes, offcouse")
-            sleep(1)
+            #sleep(1)
             aboutALEXIS()
+
         elif "your spelling" in query:
             speak("Sure, just wait a moment please")
             SpellingALEXIS()
             speak("you can also see it on your console, if you want to see spelling of my name")
 
-
-        elif 'play music' in query:
-            music_dir = 'C:\\Users\\91830\\Music'
-            songs = os.listdir(music_dir)
-            print(songs)
-            os.startfile(os.path.join(music_dir, songs[0]))
-
-        
         elif 'the time' in query:
             time()
+        
         elif 'the date' in query:
             date()
-
-
+    
         elif 'open vs code file' in query:
             #codePath = "D:\\VS CODE NIRAMAY"
             codePath = "C:\\Users\\91830\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Visual Studio Code"
             os.startfile(codePath)
 
-        
         elif 'send email to Hemang' in query:
             try:
                 speak("what do you want to say ..??")
@@ -254,15 +333,16 @@ if __name__ == "__main__":
                 print(e)
                 speak("Sorry can't send email")
 
-
-        elif 'goodbye' in query:
-            speak("Good Bye dear sir ")
-            quit()
         elif 'thank'in query:
             speak("it's my pleasure sir ")      
         
+        elif 'goodbye' in query:
+            speak("Good Bye dear sir ")
+            print("----------------- ALEXIS turned OFF -----------------")
+            quit()
 
-# Few more funtions you can try ...
+        
+# Few more funtions to try ...
         
         """ elif "how are you" in query:
             speak("I'm fine sir thanks for asking ...")
@@ -270,7 +350,6 @@ if __name__ == "__main__":
         elif "i am fine" or 'i am also fine' in query:
             speak("Thats great, i am happy to know; that you are fine")
 
-        
         elif 'remember that' in query:
 			speak("What should I remember?")
 			data = takeCommand()
@@ -279,6 +358,9 @@ if __name__ == "__main__":
 			remember.write(data)
 			remember.close()
 
+        elif 'send message' in query:
+            speak("ok sir")
+            kit.sendwhatmsg("+918306105454", "this is messege from ALEXIS NIRAMAY THAKER's assistance",4, 43)
 
         elif 'logout' in query:
 			os.system("shutdown -l")
@@ -289,7 +371,6 @@ if __name__ == "__main__":
         elif 'restart' in query:
 			os.system("shutdown /r /t 1")
 
-
         elif 'Can you Search These' in query:
 			speak("What should i search ..?")
 			chromepath = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
@@ -299,5 +380,10 @@ if __name__ == "__main__":
 			search = takeCommand().lower()
 			wb.get(BraveBrowser).open_new_tab(search+'.com')
 
-      elif 'joke' in query:
-		      	jokes()"""
+        elif 'screenshot' in query:
+            speak("ok sir taking screenshot")
+            screenshot()
+            speak("screenshort taken and has been saved where you have told me")
+
+        elif 'joke' in query:
+			jokes()"""
