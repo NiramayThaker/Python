@@ -1,2 +1,2 @@
 # Python
-all the normal(basics) and even some of the advanced python code will be added here ...
+
