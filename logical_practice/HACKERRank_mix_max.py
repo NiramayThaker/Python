@@ -30,7 +30,7 @@ def miniMaxSum(arr):
             count += 1
             if count <= len(arr)-1:
                 min_ += i
-
+                
         if max_sum > 0:
             return
         print(min_, end=' ')
