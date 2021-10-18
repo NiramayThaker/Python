@@ -22,8 +22,7 @@ def miniMaxSum(arr):
                 min_sum += i 
         if min_sum != 0:
             print(min_sum)
-    finally:
-        
+    finally:        
         min_ = 0
         count = 0
 
